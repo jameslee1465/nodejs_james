@@ -11,17 +11,13 @@ let readFilePromise = (dataPath) => {
   });
 };
 
-// /dramas/page --> 回傳 dramas.html
 router.get("/page", (req, res) => {
-  res.render("dramas.html");
+  res.render("spending.html");
 });
 
 
-// GET /dramas/getDramaListData  --> 取得 資料
-// => 改成 GET /dramas/list
-router.get("/list", async (req, res) => {   // API 佳 ！！!
-  // router.get("/getDramaListData" , async (req,res)=>{  // API 不佳
-  // res.json({ message : "嗨嗨～～～"});
+
+router.get("/list", async (req, res) => {   
 
   //// 純 讀取 models/sample2.json  , response 給前端
   // try {
@@ -61,28 +57,24 @@ router.get("/list", async (req, res) => {   // API 佳 ！！!
   };
 });
 
-
-// POST /dramas/CreateNewDramaData  --> 新增資料 
-// => 改成 POST /dramas/data
-router.post("/data", async (req, res) => {  // API 佳 ！！！
-  // router.post("/CreateNewDramaData" , async (req,res)=>{ // API 不佳
+router.post("/data", async (req, res) => { 
   try {
     // 取得前端傳來 Form Data 的參數值
     // console.log("req.body:",req.body);
     let payload = req.body;
     console.log(payload["category"]);
-    console.log(payload["name"]);
+    console.log(payload["date"]);
 
     // 將 req.body (Form Data) 寫入到 sample2.json 裡
     // 1. 先讀出此 Array
     let data = await readFilePromise("models/sample2.json");
 
-    //新增流水dramaID
-    latestId = data.map(n => n["dramaId"])
+    //新增流水spendingID
+    latestId = data.map(n => n["spendingId"])
       .filter(n => n !== undefined)
       .sort((a, b) => b - a)[0];
     newId = Number(latestId) + 1;
-    req.body.dramaId = String(newId);
+    req.body.spendingId = String(newId);
 
     // 2. 使用 .push 
     data.push(req.body);

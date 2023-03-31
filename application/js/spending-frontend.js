@@ -1,6 +1,6 @@
 $(function(){
 
-    $("#drama-select-btn").click(function(){
+    $("#spending-select-btn").click(function(){
 
         // [Coding]
         // createTable();
@@ -10,12 +10,9 @@ $(function(){
         //// 使用 ajax 發 request 
         //// 並用 query_string 攜帶參數
         let type = $("#categories-select").val();
-        console.log(type);
-        console.log("/dramas/getDramaListData?type=" + type);
 
         $.ajax({
-            url  : "/dramas/list?type=" + type,   // API 位置
-            // url  : "/dramas/getDramaListData?type=" + type,   // API 位置
+            url  : "/spending/list?type=" + type, 
             type : "GET"    // requests 的方法 (種類)
          })
          .then(res=>{ 
@@ -27,73 +24,56 @@ $(function(){
          });
     });
 
-    $("#drama-insert-btn").click(function(){
+    $("#spending-insert-btn").click(function(){
         insertNewRecord();
     });
 
 });
 
 let createTable = (data)=>{
-    data = data || [
-        { category : "犯罪" , name : "絕命毒師" , score : 10 },
-        { category : "殭屍" , name : "屍戰朝鮮" , score : 9 },
-        { category : "愛情" , name : "想見你"   , score : 8.5 },
-    ];
- 
 
     let tableBody = data.map((ele,i)=>`
         <tr>
             <th scope="row">${i+1}</th>
             <td>${ele.category}</td>
-            <td>${ele.name}</td>
-            <td>${ele.score} / 10</td>
+            <td>${ele.date}</td>
+            <td>$${ele.price}</td>
         </tr>
     `).join("");
     
 
-    $("#drama-select-table tbody").html(tableBody);
+    $("#spending-select-table tbody").html(tableBody);
 };
 
 
 
 let insertNewRecord = ()=> {
     let category  = $("#categories-insert option:selected").val(); 
-    let name      = $("#name-insert").val();
-    let score     = $("#score-insert").val();
+    let date      = $("#date-insert").val();
+    let price     = $("#price-insert").val();
 
 
-    if(!name || name.length === 0){
-        alert("請輸入劇名！");
+    if(!date || date.length === 0){
+        alert("請輸入日期！");
         return;
     };
 
-    if(!score || score.legnth === 0){
-        alert("請輸入評價！");
+    if(!price || price.legnth === 0){
+        alert("請輸入花費！");
         return;
     };
 
 
     $.ajax({
-        url  : "/dramas/data",
-        // url  : "/dramas/createNewDramaData",
+        url  : "/spending/data",
         type : "POST",
 
         //// 以 application/x-www-form-urlencoded 資料傳送
         data : {
             category,
-            name,
-            score
+            date,
+            price
         },
-        ////
-        
-        //// 以 application/json 資料傳送
-        // data : JSON.stringify({
-        //     category,
-        //     name,
-        //     score
-        // }),
-        // contentType: "application/json",
-        ////
     })
     .then(r=>{
         if(r.message === "ok."){

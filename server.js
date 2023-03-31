@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");  // 記得 npm install body-parser
 const app = express();
 const portNum = 8088;
 
-const dramasRouter = require("./router/dramas");
+const spendingRouter = require("./router/spending");
 
 
 // [Views][1] 設定模板引擎 (解析 html 檔 , 讓 express 看懂 html 程式)
@@ -35,32 +35,14 @@ app.use(bodyParser.urlencoded({
 
 
 app.get("/" , (req,res)=>{
-  // res.send("嗨嗨,  我是 Node.js server.");
-  
-  // [Views][4] 使用 .render (渲染) 回傳 html 頁面
   res.render("index.html");
 });
 
-app.use("/dramas",dramasRouter);
+app.use("/spending",spendingRouter);
 
-
-// 關於我們 頁面
 app.get("/about",(req,res)=>{
   res.render("about.html");
 });
-
-//////////////////////// 
-// 前端教學用
-// HTML / Css / 前端 Js 教學
-app.get("/testqq",(req,res)=>{
-  res.render("template.html");
-});
-
-app.get("/data",(req,res)=>{
-  res.json({ name : "jeff" , age : 18 , message : "今天好冷喔～～～" });
-});
-////////////////////////
-
 
 app.listen(portNum , ()=>{
   console.log(`Server is running at localhost:${portNum}`);

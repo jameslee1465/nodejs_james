@@ -14,7 +14,7 @@
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="/css/layout.css" />
 
-    <title>Node.js 教學</title>
+    <title>記帳系統</title>
 </head>
 
 <body>
@@ -26,15 +26,15 @@
             <div class="sidebar-content">
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="#dramasBorrow" data-toggle="collapse" aria-expanded="false"  class="dropdown-toggle">
+                        <a href="#spendingBorrow" data-toggle="collapse" aria-expanded="false"  class="dropdown-toggle">
                             <span class="icon-holder">
                                 <i class="far fa-address-card"></i> </span>
                             <span class="menu-title">記帳系統</span>
                         </a>
                         
-                        <ul class="collapse list-unstyled" id="dramasBorrow">
+                        <ul class="collapse list-unstyled" id="spendingBorrow">
                             <li>
-                                <a href="/dramas/page"> 記帳資料 </a>
+                                <a href="/spending/page"> 記帳資料 </a>
                             </li>
                         </ul>
                     </li>
@@ -48,7 +48,7 @@
                         
                         <ul class="collapse list-unstyled" id="aboutMe">
                             <li>
-                                <a href="/about"> 關於我們 </a>
+                                <a href="/about"> 關於 </a>
                             </li>
                         </ul>
                     </li>
@@ -66,86 +66,69 @@
             </div>
             <div class="m-2 p-2" style="overflow-y: scroll">
                 <div class="box-s1">
-                    <h5>影集資料 查詢</h5>
+                    <h5>帳本 查詢</h5>
                     <div class="form-row mx-1">
                         <div class="form-group col-md-3 mr-2">
                             <label class="col-form-label">類型 選擇</label>
                             <select class="form-control" id="categories-select">
-                                <option value="犯罪">犯罪</option>
-                                <option value="殭屍">殭屍</option>
-                                <option value="愛情">愛情</option>
-                                <option value="政治">政治</option>
+                                <option value="日常用品">日常用品</option>
+                                <option value="飲食">飲食</option>
+                                <option value="交通">交通</option>
+                                <option value="服飾">服飾</option>
                                 <option value="其他">其他</option>
                                 <option value="全">全</option>
                             </select>
                         </div>
                         <div class="form-group col-md-1">
                             <label class="col-form-label text-white">空白 空白</label>
-                            <button type="button" class="btn btn-outline-primary" id="drama-select-btn">查詢</button>
+                            <button type="button" class="btn btn-outline-primary" id="spending-select-btn">查詢</button>
                         </div>
                     </div>
-                    <table class="table col-md-12 mx-2" id="drama-select-table">
+                    <table class="table col-md-12 mx-2" id="spending-select-table">
                         <thead class="thead-light">
                             <tr>
                             <th scope="col">#</th>
                             <th scope="col">類型</th>
-                            <th scope="col">劇名</th>
-                            <th scope="col">評價</th>
+                            <th scope="col">日期</th>
+                            <th scope="col">花費</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr>
-                            <th scope="row">1</th>
-                                <td>犯罪</td>
-                                <td>絕命毒師</td>
-                                <td>10/10</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                                <td>殭屍</td>
-                                <td>屍戰朝鮮</td>
-                                <td>9/10</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                                <td>愛情</td>
-                                <td>想見你</td>
-                                <td>8.6/10</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
 
                 <div class="box-s1">
-                    <h5>影集資料 新增</h5>
+                    <h5>帳本 新增</h5>
                     <div class="form-row">
                         <div class="form-group col-md-3 mx-3">
                             <label class="col-form-label">類型</label>
                             <select class="form-control" id="categories-insert">
-                                <option value="犯罪">犯罪</option>
-                                <option value="殭屍">殭屍</option>
-                                <option value="愛情">愛情</option>
-                                <option value="政治">政治</option>
+                                <option value="日常用品">日常用品</option>
+                                <option value="飲食">飲食</option>
+                                <option value="交通">交通</option>
+                                <option value="服飾">服飾</option>
                                 <option value="其他">其他</option>
                             </select>
                         </div>
 
                         <div class="form-group col-md-3 mx-3">
-                            <label class="col-form-label">劇名</label>
-                            <input class="form-control" type="text"  id="name-insert"/>
+                            <label class="col-form-label">日期</label>
+                            <input class="form-control" type="date" id="date-insert"/>
                         </div>
                         <div class="form-group col-md-3 mx-3">
-                            <label class="col-form-label">評價</label>
-                            <input class="form-control" type="number" 
+                            <label class="col-form-label">花費</label>
+                            <!-- <input class="form-control" type="number" 
                                 onKeyDown="return false" step="0.5"
-                                id="score-insert"
-                                min=1 max=10 />
+                                id="price-insert"
+                                min=1 max=10 /> -->
+                            <input class="form-control" type="number" id="price-insert"/>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-3 mx-3">
-                            <button type="button" class="btn btn-outline-primary" id="drama-insert-btn">新增</button>
+                            <button type="button" class="btn btn-outline-primary" id="spending-insert-btn">新增</button>
                         </div>
                     </div>
                     
@@ -166,7 +149,7 @@
 
 
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/dramas-frontend.js"></script>
+    <script type="text/javascript" src="/js/spending-frontend.js"></script>
 </body>
 
 </html>
