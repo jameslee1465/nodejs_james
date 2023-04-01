@@ -70,14 +70,22 @@
                     <div class="form-row mx-1">
                         <div class="form-group col-md-3 mr-2">
                             <label class="col-form-label">類型 選擇</label>
-                            <select class="form-control" id="categories-select">
+                            <select class="form-control" id="type-select">
+                                <option value=""></option>
                                 <option value="日常用品">日常用品</option>
                                 <option value="飲食">飲食</option>
                                 <option value="交通">交通</option>
                                 <option value="服飾">服飾</option>
                                 <option value="其他">其他</option>
-                                <option value="全">全</option>
                             </select>
+                        </div>
+                        <div class="form-group col-md-3 mr-2">
+                            <label class="col-form-label">日期 選擇</label>
+                            <input class="form-control" type="date" id="date-select"/>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label class="col-form-label text-white">空白 空白</label>
+                            <button type="button" class="btn btn-outline-primary" id="clear-select-btn">清空</button>
                         </div>
                         <div class="form-group col-md-1">
                             <label class="col-form-label text-white">空白 空白</label>
@@ -91,6 +99,7 @@
                             <th scope="col">類型</th>
                             <th scope="col">日期</th>
                             <th scope="col">花費</th>
+                            <th scope="col">備註</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -101,9 +110,9 @@
                 <div class="box-s1">
                     <h5>帳本 新增</h5>
                     <div class="form-row">
-                        <div class="form-group col-md-3 mx-3">
+                        <div class="form-group col-md-2 mx-2">
                             <label class="col-form-label">類型</label>
-                            <select class="form-control" id="categories-insert">
+                            <select class="form-control" id="type-insert">
                                 <option value="日常用品">日常用品</option>
                                 <option value="飲食">飲食</option>
                                 <option value="交通">交通</option>
@@ -112,11 +121,11 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-md-3 mx-3">
+                        <div class="form-group col-md-2 mx-2">
                             <label class="col-form-label">日期</label>
                             <input class="form-control" type="date" id="date-insert"/>
                         </div>
-                        <div class="form-group col-md-3 mx-3">
+                        <div class="form-group col-md-2 mx-2">
                             <label class="col-form-label">花費</label>
                             <!-- <input class="form-control" type="number" 
                                 onKeyDown="return false" step="0.5"
@@ -124,10 +133,14 @@
                                 min=1 max=10 /> -->
                             <input class="form-control" type="number" id="price-insert"/>
                         </div>
+                        <div class="form-group col-md-3 mx-3">
+                            <label class="col-form-label">備註</label>
+                            <input class="form-control" type="string" id="note-insert"/>
+                        </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-3 mx-3">
+                        <div class="form-group col-md-2 mx-2">
                             <button type="button" class="btn btn-outline-primary" id="spending-insert-btn">新增</button>
                         </div>
                     </div>

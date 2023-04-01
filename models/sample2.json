@@ -1,1 +1,106 @@
-[{"spendingId":"1001","category":"飲食","date":"2023-03-10","price":50},{"spendingId":"1002","category":"交通","date":"2023-03-10","price":40},{"spendingId":"1003","category":"日常用品","date":"2023-03-09","price":33},{"spendingId":"1004","category":"服飾","date":"2023-03-09","price":555},{"spendingId":"1005","category":"服飾","date":"2023-03-06","price":113},{"spendingId":"1006","category":"服飾","date":"2023-03-01","price":562},{"spendingId":"1007","category":"日常用品","date":"2023-03-04","price":223},{"category":"飲食","date":"2023-03-22","price":"50","spendingId":"1008"},{"category":"飲食","date":"2023-03-05","price":"50","spendingId":"1009"},{"category":"日常用品","date":"2023-03-21","price":"400","spendingId":"1010"},{"category":"服飾","date":"2023-03-08","price":"599","spendingId":"1011"},{"category":"服飾","date":"2023-04-08","price":"592","spendingId":"1012"},{"category":"日常用品","date":"2023-03-11","price":"29","spendingId":"1013"}]
+[
+    {
+        "spendingId": "1001",
+        "type": "飲食",
+        "date": "2023-03-10",
+        "price": 50
+    },
+    {
+        "spendingId": "1002",
+        "type": "交通",
+        "date": "2023-03-10",
+        "price": 40
+    },
+    {
+        "spendingId": "1003",
+        "type": "日常用品",
+        "date": "2023-03-09",
+        "price": 33
+    },
+    {
+        "spendingId": "1004",
+        "type": "服飾",
+        "date": "2023-03-09",
+        "price": 555
+    },
+    {
+        "spendingId": "1005",
+        "type": "服飾",
+        "date": "2023-03-06",
+        "price": 113
+    },
+    {
+        "spendingId": "1006",
+        "type": "服飾",
+        "date": "2023-03-01",
+        "price": 562
+    },
+    {
+        "spendingId": "1007",
+        "type": "日常用品",
+        "date": "2023-03-04",
+        "price": 223
+    },
+    {
+        "type": "飲食",
+        "date": "2023-03-22",
+        "price": "50",
+        "spendingId": "1008"
+    },
+    {
+        "type": "飲食",
+        "date": "2023-03-05",
+        "price": "50",
+        "spendingId": "1009"
+    },
+    {
+        "type": "日常用品",
+        "date": "2023-03-21",
+        "price": "400",
+        "spendingId": "1010"
+    },
+    {
+        "type": "服飾",
+        "date": "2023-03-08",
+        "price": "599",
+        "spendingId": "1011"
+    },
+    {
+        "type": "服飾",
+        "date": "2023-04-08",
+        "price": "592",
+        "spendingId": "1012"
+    },
+    {
+        "type": "日常用品",
+        "date": "2023-03-11",
+        "price": "29",
+        "spendingId": "1013"
+    },
+    {
+        "type": "日常用品",
+        "date": "2023-03-29",
+        "price": "4",
+        "spendingId": "1014"
+    },
+    {
+        "type": "日常用品",
+        "date": "2023-04-12",
+        "price": "212",
+        "spendingId": "1015"
+    },
+    {
+        "type": "其他",
+        "date": "2023-04-01",
+        "price": "1800",
+        "note": "洗衣機費",
+        "spendingId": "1016"
+    },
+    {
+        "type": "日常用品",
+        "date": "2023-04-01",
+        "price": "121",
+        "note": "ahaha",
+        "spendingId": "1017"
+    }
+]
