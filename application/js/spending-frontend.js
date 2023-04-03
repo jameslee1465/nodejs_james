@@ -1,12 +1,14 @@
 $(function(){
     $("#date-select").val(getTodayDate());
     $("#date-insert").val(getTodayDate());
+    // showList();
     searchSpending();
 
     $("#clear-select-btn").click(function(){
         $("#type-select").val("");
         $("#date-select").val("");
     })
+
     $("#spending-select-btn").click(function(){
         searchSpending();
     });
@@ -38,8 +40,19 @@ let createTable = (data)=>{
     $("#spending-select-table tbody").html(tableBody);
 };
 
+let showList = () => {
+    $.ajax({
+        url: "/spending/data",
+        type: "GET"
+    }).then(res =>{
+        console.log(res);
+        createTable(res);
+    }).catch(err => {
+        console.log(err);
+    });
+};
+
 let searchSpending = () => {
-            
     let type = $("#type-select").val();
     let date = $("#date-select").val();
 
@@ -47,15 +60,14 @@ let searchSpending = () => {
     console.log(date);
     
     $.ajax({
-        url  : "/spending/list?type=" + type + "&date=" + date, 
+        url  : "/spending/data?type=" + type + "&date=" + date, 
         type : "GET"    // requests 的方法 (種類)
         })
         .then(res=>{ 
         console.log(res);
-        createTable(res["result"]);  // 丟入 Array 資料
+        createTable(res);  // 丟入 Array 資料
         })
         .catch(err =>{
-        console.log("fuck");
         console.log(err);
         });
 }
@@ -63,24 +75,22 @@ let searchSpending = () => {
 let insertSpending = ()=> {
     let type = $("#type-insert option:selected").val(); 
     let date = $("#date-insert").val();
-    let price = $("#price-insert").val();
+    let price = parseInt($("#price-insert").val());
     let note = $("#note-insert").val();
 
+    // if(!date || date.length === 0){
+    //     alert("請輸入日期！");
+    //     return;
+    // };
 
-    if(!date || date.length === 0){
-        alert("請輸入日期！");
-        return;
-    };
+    // if(!price || price.legnth === 0){
+    //     alert("請輸入花費！");
+    //     return;
+    // };
 
-    if(!price || price.legnth === 0){
-        alert("請輸入花費！");
-        return;
-    };
-
-    if(!note || note.legnth === 0){
-        note = "";
-        return;
-    };
+    // if(!note || note.legnth === 0){
+    //     note = "";
+    // };
 
     $.ajax({
         url  : "/spending/data",
@@ -93,19 +103,18 @@ let insertSpending = ()=> {
             price,
             note
         },
-    })
-    .then(r=>{
-        if(r.message === "ok."){
-            alert("更新完成！");
-            location.reload();  //頁面 重新整理
-        };
-        
-    })
-    .catch(err=>{
+    }).then(res=>{
+        console.log(res);
+        alert("更新完成！");
+        location.reload();  //頁面 重新整理
+    }).catch(err=>{
         console.log(err);
-
         if(err.status === 404){
             alert("找不到該 API !");
+            return;
+        };
+        if(err.status === 422){
+            alert("請正確輸入 !");
             return;
         };
         alert("系統有誤 , 請稍後再試！");
