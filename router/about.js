@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/",(req,res)=>{
-    res.render("about.html");
+    res.render("about", {title: "關於"});
 });
 
 router.post("/data", (req, res) => {

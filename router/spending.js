@@ -12,14 +12,24 @@ const Spending = require("../models/spending");
 //   });
 // };
 
-router.get("/", (req, res) => {
-  res.render("spending.html");
+let getTodayDate = () => {
+  let date = new Date();
+  let nowYear = date.getFullYear();
+  let nowMonth = (date.getMonth()+1) >= 10 ? (date.getMonth()+1) : "0" + (date.getMonth()+1);
+  let nowDay = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
+  return nowYear + "-" + nowMonth + "-" + nowDay;
+};
+
+router.get("/", (req, res, next) => {
+  Spending.find({date: getTodayDate()}).then((spendings) => {
+    res.render("spending", {title: "記帳系統", spendings});
+  }).catch(next);
 });
 
 router.post("/data", (req, res, next) => {
   //promise
   Spending.create(req.body).then((spending) => {
-    res.send(spending);
+    res.redirect("/spending");
   }).catch(next);
 });
 
@@ -43,7 +53,7 @@ router.get("/data", (req, res, next) => {
       res.send(spending);
     }).catch(next);
   }
-})
+});
 
 router.put("/data/:id", (req, res, next) =>{
   Spending.findByIdAndUpdate({_id: req.params.id}, req.body).then((spending) => {
@@ -51,13 +61,12 @@ router.put("/data/:id", (req, res, next) =>{
   }).catch(next);
 });
 
-router.delete("/data/:id", (req, res, next) =>{
+router.get("/delete/:id", (req, res, next) =>{
   Spending.findByIdAndRemove({_id: req.params.id}).then(() => {
     Spending.findOne({_id: req.params.id}).then((spending) => {
-      res.send(spending);
+      res.redirect('/spending');
     });
   }).catch(next);
-
 });
 
 module.exports = router;

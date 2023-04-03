@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<%- include("./partials/head.ejs") %>
+<body>
+    <div class="wrapper">
+        <%- include("./partials/nav.ejs") %>
+        <!-- Page Content  -->
+        <div id="content-container">
+            <div class="menu-header">
+                <button type="button" id="sidebarCollapse" class="btn menu-btn m-1 text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="m-2 p-2" style="overflow-y: scroll">
+                <div class="box-s1">
+                    <h5>帳本 查詢</h5>
+                    <div class="form-row mx-1">
+                        <div class="form-group col-md-3 mr-2">
+                            <label class="col-form-label">類型 選擇</label>
+                            <select class="form-control" id="type-select" onchange="search('type',this.options[this.options.selectedIndex].value)">
+                                <option value=""></option>
+                                <option value="日常用品">日常用品</option>
+                                <option value="飲食">飲食</option>
+                                <option value="交通">交通</option>
+                                <option value="服飾">服飾</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 mr-2">
+                            <label class="col-form-label">日期 選擇</label>
+                            <input class="form-control" type="date" id="date-select" onchange="search('date',this.value)"/>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label class="col-form-label text-white">空白 空白</label>
+                            <button type="button" class="btn btn-outline-secondary" id="clear-select-btn">清空</button>
+                        </div>
+                        <div class="form-group col-md-3"></div>
+                        <div class="form-group col-md-1">
+                            <label class="col-form-label text-white">空白 空白</label>
+                            <button type="button" class="btn btn-outline-primary" onclick="showModal('create')">新增</button>
+                        </div>
+                    </div>
+                    <table class="table col-md-12 mx-2" id="spending-select-table">
+                        <thead class="thead-light">
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">類型</th>
+                            <th scope="col">日期</th>
+                            <th scope="col">花費</th>
+                            <th scope="col">備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if(spendings.length > 0) { %>
+                                <% let i = 0 %>
+                                <% spendings.forEach(spending => { %>
+                                    <% i++ %>
+                                    <tr>
+                                        <th scope="row"><%= i %></th>
+                                        <td><%= spending.type %></td>
+                                        <td><%= spending.date %></td>
+                                        <td>$<%= spending.price %></td>
+                                        <td><%= spending.note %></td>
+                                        <td>
+                                            <a href="/spending/data/<%= spending._id %>"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                            <a href="/spending/delete/<%= spending._id %>" data-method="delete" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% }else{ %>
+                                    <th scope="row">查無資料!!!</th>                                
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal fade" id="create_Modal"  role="dialog" aria-labelledby="CreateModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                          <form action="/spending/data" method="POST" autocomplete="off">
+                            <div class="modal-body">
+                                <h3>帳本新增</h3>
+                              <div class="d-flex justify-content-center">
+                                <div class="col-lg-11">
+                                  <div class="form-group row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="type">類型</label>
+                                        <select type="text" id="type-create" name="type" class="form-control rounded-pill" required>
+                                            <option value="日常用品">日常用品</option>
+                                            <option value="飲食">飲食</option>
+                                            <option value="交通">交通</option>
+                                            <option value="服飾">服飾</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                        </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="date">日期</label>
+                                        <input type="date" class="form-control rounded-pill" id="date-create" name="date" required>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="price">花費</label>
+                                        <input type="text" class="form-control rounded-pill" id="price-create" name="price" required>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="note">備註</label>
+                                        <input type="text" class="form-control rounded-pill" id="note-create" name="note" >
+                                      </div>
+                                  </div>
+                  
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="submit" class="btn btn-outline-primary "><span class="mx-2">新增</span></button>
+                                <button type="button" class="btn btn-outline-danger " data-dismiss="modal"><span class="mx-2">關閉</span></button>
+                            </div>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+            <%- include("./partials/footer.ejs") %>
+        </div>
+    </div>
+
+    <%- include("./partials/scriptsbot.ejs")  %>
+    <script type="text/javascript" src="/js/spending-frontend.js"></script>
+</body>
+
+</html>

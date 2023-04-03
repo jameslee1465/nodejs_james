@@ -876,13 +876,10 @@ html {
     flex-direction: column;
     flex: 1;
     position: relative;
-    background-image: url(../images/bg_welcome_left.png),
-      url(../images/bg_welcome_right.png);
-    background-repeat: no-repeat,
-      no-repeat;
+    background-image:  url(../images/shookybg.jpg);
+    background-repeat: no-repeat;
     background-color: #EDEDED;
-    background-position: bottom left,
-      top right;
+    background-size: 100%;
   }
   
   .welcome-svg{
