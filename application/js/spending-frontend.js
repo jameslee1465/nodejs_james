@@ -2,13 +2,7 @@ var type = "";
 var date = "";
 $(function(){
      date = getTodayDate();
-
     $("#date-select").val(getTodayDate());
-    $("#date-create").val(getTodayDate());
-
-    $("#spending-insert-btn").click(function(){
-        insertSpending();
-    });
 });
 
 $("#clear-select-btn").click(function(){
@@ -19,9 +13,42 @@ $("#clear-select-btn").click(function(){
     setList();
 })
 
-function showModal(method){
-    $('#'+method +'_Modal').modal('show')
-}
+let showModal = (method, id) => {
+    if(method == "create"){
+        $.ajax({
+            url :"/spending/method",
+            type : "GET"
+         }).then(res => {
+            $('#createOrUpdate_title').html(res.method);
+            $("#date-createOrUpdate").val(getTodayDate());
+            $('#createOrUpdate_submit').html(res.method);
+            $('#createOrUpdate_Modal').modal('show');
+        }).catch(err =>{
+            console.log(err);
+        });
+    }else if(method == "update"){
+        $.ajax({
+            url :"/spending/method?id=" + id,
+            type : "GET"
+        }).then(res => {
+            let idDiv = `
+            <input type="hidden" id="id-createOrUpdate" name="_id" value="${res.spending._id}">
+            `
+            $('#id-createOrUpdate').html(idDiv); 
+            $('#type-createOrUpdate').val(res.spending.type);
+            $('#date-createOrUpdate').val(res.spending.date);
+            $('#price-createOrUpdate').val(res.spending.price);
+            $('#note-createOrUpdate').val(res.spending.note);
+            $('#createOrUpdate_title').html(res.method);
+            $('#createOrUpdate_submit').html(res.method);
+            $('#createOrUpdate_Modal').modal('show')
+            
+        }).catch(err =>{
+            console.log(err);
+        });
+    }
+};
+
 
 let getTodayDate = () => {
     let today = new Date();
@@ -51,7 +78,7 @@ let setList = ()=>{
     console.log(type);
     console.log(date);
     $.ajax({
-        url  : "/spending/data?type=" + type + "&date=" + date, 
+        url  : "/spending?type=" + type + "&date=" + date, 
         type : "GET"    // requests 的方法 (種類)
     }).then(res=>{ 
         let tableBody = res.map((ele,i)=>`
@@ -62,8 +89,8 @@ let setList = ()=>{
                 <td>$${ele.price}</td>
                 <td>${ele.note}</td>
                 <td>
-                    <a href="/spending/data/${ele._id}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                    <a href="/spending/delete/${ele._id}" data-method="delete" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+                    <a href="#" onclick="showModal('update', '${ele._id}')"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                    <a href="/spending/delete/${ele._id}" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
                 </td>
             </tr>
         `).join("");

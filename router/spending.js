@@ -1,16 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Spending = require("../models/spending");
-// const fs = require("fs");
-
-// let readFilePromise = (dataPath) => {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(dataPath, "utf8", (err, data) => {
-//       if (err) reject(err);
-//       else resolve(JSON.parse(data));
-//     });
-//   });
-// };
 
 let getTodayDate = () => {
   let date = new Date();
@@ -20,52 +10,78 @@ let getTodayDate = () => {
   return nowYear + "-" + nowMonth + "-" + nowDay;
 };
 
+//主頁生成今日帳本列表
 router.get("/", (req, res, next) => {
-  Spending.find({date: getTodayDate()}).then((spendings) => {
-    res.render("spending", {title: "記帳系統", spendings});
-  }).catch(next);
-});
-
-router.post("/data", (req, res, next) => {
-  //promise
-  Spending.create(req.body).then((spending) => {
-    res.redirect("/spending");
-  }).catch(next);
-});
-
-router.get("/data", (req, res, next) => {
-  let type = req.query.type;
-  let date = req.query.date;
-  if (type === "" && date === "") {
-    Spending.find({}).then((spending) => {
-      res.send(spending);
+  if(req.url == "/"){
+    Spending.find({date: getTodayDate()}).then((spendings) => {
+      res.render("spending", {title: "記帳系統" , spendings});
     }).catch(next);
-  }else if(type === ""){
-    Spending.find({"date": date}).then((spending) => {
-      res.send(spending);
-    }).catch(next);
-  }else if(date === ""){
-    Spending.find({"type": type}).then((spending) => {
-      res.send(spending);
-    }).catch(next);
+//搜尋相符選項的帳本列表
   }else{
-    Spending.find({"type": type, "date": date}).then((spending) => {
-      res.send(spending);
-    }).catch(next);
+    let type = req.query.type;
+    let date = req.query.date;
+    if (type === "" && date === "") {
+      Spending.find({}).then((spending) => {
+        res.send(spending);
+      }).catch(next);
+    }else if(type === ""){
+      Spending.find({"date": date}).then((spending) => {
+        res.send(spending);
+      }).catch(next);
+    }else if(date === ""){
+      Spending.find({"type": type}).then((spending) => {
+        res.send(spending);
+      }).catch(next);
+    }else{
+      Spending.find({"type": type, "date": date}).then((spending) => {
+        res.send(spending);
+      }).catch(next);
+    }
   }
 });
 
-router.put("/data/:id", (req, res, next) =>{
-  Spending.findByIdAndUpdate({_id: req.params.id}, req.body).then((spending) => {
-    res.send(spending);
-  }).catch(next);
+//新增帳本功能，回前端開啟新增帳本modal
+//編輯帳本功能，把與_id相符的帳本傳回前端開啟新增帳本modal
+router.get("/method", (req, res, next) => {
+  if(req.url == "/method"){
+    res.send({method : "新增帳本"});
+  }else{
+    Spending.findById({_id: req.query.id}).then((spending) => {
+      res.send({method : "更新帳本", spending});
+    }).catch(next); 
+  }
 });
 
-router.get("/delete/:id", (req, res, next) =>{
-  Spending.findByIdAndRemove({_id: req.params.id}).then(() => {
-    Spending.findOne({_id: req.params.id}).then((spending) => {
-      res.redirect('/spending');
+//處理前端回傳的form資料
+//createOrUpdate
+router.post("/method", (req, res, next) => {
+  if(req.body._id){
+    updateData(req, res, next);
+  } else{
+    createData(req, res, next);
+  };
+});
+
+let createData = (req, res, next) => {
+  Spending.create(req.body).then((spending) => {
+    console.log("以新增: " + spending);
+    res.redirect("/spending");
+  }).catch(next);
+};
+
+let updateData = (req, res, next) => {
+  Spending.findByIdAndUpdate({_id: req.body._id}, req.body).then((spending) => {
+    Spending.findOne({_id: spending._id}).then((updatedData) => {
+      console.log("已更新: " + updatedData);
+      res.redirect("/spending");
     });
+  }).catch(next);
+};
+
+router.get("/delete/:id", (req, res,  next) =>{
+  Spending.findByIdAndRemove({_id: req.params.id}).then((spending) => {
+    console.log("已刪除: " + spending);
+    res.redirect('/spending');
   }).catch(next);
 });
 

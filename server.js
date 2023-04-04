@@ -41,8 +41,6 @@ app.use(bodyParser.urlencoded({
 app.use("/spending", require("./router/spending"));
 app.use("/about", require("./router/about"));
 
-
-
 app.get("/" , (req,res)=>{
   res.render("index", {title : "首頁"});
 });

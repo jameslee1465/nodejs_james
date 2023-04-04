@@ -12,10 +12,37 @@
                 </button>
             </div>
 
-            <div class="m-2 p-2">
-                <h2>Hello world!!</h2>
+            <div class="m-1 p-1">
+                <h2>Hello, this is James' personal website ! <i class="fa fa-hippo fa-bounce fa-2xl" style="color: #92569a"></i></h2>
                 <hr>
-                <p style="color:#f00">關於James</p>
+                <h2 style="color:rgb(220, 176, 100)"><u>LINKS</u></h2>
+                <a href="https://www.linkedin.com/in/jameslee1465/" title="LinkedIn" target="_blank"><i class="fab fa-linkedin fa-2xl"></i></a>
+                <a href="https://github.com/jameslee1465" title="Github" target="_blank"><i class="fab fa-github fa-2xl"></i></a>
+                <a href="https://drive.google.com/file/d/1ETU1k18uJIi2wSCOSn0gQvOsogvKxzwJ/view?usp=share_link" target="_blank" title="個人中文履歷(Google Drive)"  target="_blank"><i class="fas fa-file fa-2xl"></i></a>
+                <br><br>
+                <a href="mailto:jameslee1465@gmail.com" title="Gmail" ><i class="fa-solid fa-envelope fa-2xl"></i>jameslee1465@gmail.com</a>
+                <hr>
+                <h3 style="color:rgb(220, 176, 100)"><b><u>PROJECTS</u></b></h3>
+                <table class=" table col-md-12 mx-2" id="spending-select-table">
+                    <thead class="thead-light">
+                        <tr>
+                        <th scope="col">Personal Website(Nodejs, MongoDB)</th>
+                        <th scope="col">Puzzle Game Website(PHP, MySQL)</th>
+                        <th scope="col">Android Workout App(Java)</th>
+                        <th scope="col">E-BONJOUR Webpage(Front-end)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a class="item" href="https://github.com/jameslee1465/nodejs_james" ><img src="images/nodejs_james.jpg" alt="Personal Website"></a></td>
+                            <td><a class="item" href="https://github.com/jameslee1465/DatabaseSystemTermProject" ><img src="images/dbs.png" alt="Puzzle Game Website"></a></td>
+                            <td><a class="item" href="https://github.com/jameslee1465/AndroidTermProject" ><img src="images/androidapp.png" alt="Android Workout App"></a></td>
+                            <td><a class="item" href="https://github.com/jameslee1465/E-BONJOUR" ><img src="images/web.png" alt="E-BONJOUR Webpage"></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                </div>
             </div>
             <%- include("./partials/footer.ejs") %>
         </div>
@@ -25,3 +52,17 @@
 </body>
 
 </html>
+
+<style>
+    img{
+        width: 100%;
+        height: auto;
+    }
+    .container{
+        display: flex;
+    }
+    .item{
+        text-align: center;
+        margin:10px;
+    }
+</style>
