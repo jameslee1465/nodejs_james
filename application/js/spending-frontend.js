@@ -19,7 +19,7 @@ $("#clear-select-btn").click(function(){
     setList();
 })
 
-function showModal(method){
+let showModal = (method) => {
     $('#'+method +'_Modal').modal('show')
 }
 
@@ -63,7 +63,7 @@ let setList = ()=>{
                 <td>${ele.note}</td>
                 <td>
                     <a href="/spending/data/${ele._id}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                    <a href="/spending/delete/${ele._id}" data-method="delete" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+                    <a href="/spending/delete/${ele._id}" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
                 </td>
             </tr>
         `).join("");

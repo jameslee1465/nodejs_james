@@ -1,0 +1,38 @@
+<form action="/spending/data" method="POST" autocomplete="off">
+    <div class="modal-body">
+        <h3> 新增帳本 </h3>
+      <div class="d-flex justify-content-center">
+        <div class="col-lg-11">
+          <div class="form-group row">
+            <div class="form-group col-lg-6">
+                <label for="type">類型</label>
+                <select type="text" id="type-create" name="type" class="form-control rounded-pill" required>
+                    <option value="日常用品">日常用品</option>
+                    <option value="飲食">飲食</option>
+                    <option value="交通">交通</option>
+                    <option value="服飾">服飾</option>
+                    <option value="其他">其他</option>
+                </select>
+                </div>
+            <div class="form-group col-lg-6">
+                <label for="date">日期</label>
+                <input type="date" class="form-control rounded-pill" id="date-create" name="date" required>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="price">花費</label>
+                <input type="text" class="form-control rounded-pill" id="price-create" name="price" required>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="note">備註</label>
+                <input type="text" class="form-control rounded-pill" id="note-create" name="note" >
+              </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-outline-primary "><span class="mx-2">新增</span></button>
+        <button type="button" class="btn btn-outline-danger " data-dismiss="modal"><span class="mx-2">關閉</span></button>
+    </div>
+</form>

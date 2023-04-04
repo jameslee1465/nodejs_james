@@ -26,13 +26,6 @@ router.get("/", (req, res, next) => {
   }).catch(next);
 });
 
-router.post("/data", (req, res, next) => {
-  //promise
-  Spending.create(req.body).then((spending) => {
-    res.redirect("/spending");
-  }).catch(next);
-});
-
 router.get("/data", (req, res, next) => {
   let type = req.query.type;
   let date = req.query.date;
@@ -54,6 +47,27 @@ router.get("/data", (req, res, next) => {
     }).catch(next);
   }
 });
+
+router.post("/data", (req, res, next) => {
+  //promise
+  if(req.body._id == ""){
+    insertData(req, res);
+  }else{
+    updateData(req,res);
+  }
+});
+
+let insertData = (req,res) =>{
+  Spending.create(req.body).then((spending) => {
+    res.redirect("/spending");
+  }).catch(next);
+}
+
+let updateData = (req, res) => {
+  Spending.findByIdAndUpdate({_id: req.body._id}, req.body).then((spending) => {
+    res.send(spending);
+  }).catch(next);
+};
 
 router.put("/data/:id", (req, res, next) =>{
   Spending.findByIdAndUpdate({_id: req.params.id}, req.body).then((spending) => {
